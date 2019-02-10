@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+
+    <script src="../main.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+    <title>Joe Legg | Verilog ALU</title>
+</head>
+
+<body>
+
+    <div id="main">
+        <button style="float: left;" id="darkmode" onclick="dark()">Dark Mode</button></p>
+        <ul>
+            <li><a href="../about.html">About</a></li>
+            <li>|</li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li>|</li>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+        <div id="blogpostcontainer">
+            <h1 id="learningverilogandimplementinganalu">Learning Verilog and implementing an ALU</h1>
+
+            <h3>Wednesday, 26 December 2018</h3>
+
+            <p>I decided it would be cool to implement a <a href="https://riscv.org/"><strong>RISC-V</strong></a>
+                processor in
+                Verilog. This is the first post documenting that journey.</p>
+
+            <p>My first step is to learn Verilog. To help me learn this I am going to
+                implement a simple processor so that I can get used to how it works. So far I
+                have made a four function ALU (arithmetic logic unit). It takes in four inputs
+                "a", "b", "select" and "enable". "select" selects the operation to preform on
+                "a" and "b". "enable" enables output.</p>
+
+            <p>Here is the code for the ALU module.</p>
+
+            <pre><code class="prettyprint language-verilog">// ALU
+module alu (
+    input [0:15] a,
+    input [0:15] b,
+    input [0:2]  select,
+    input enable,
+    output [0:15] out,
+    output carry
+);
+    reg [0:15] result;
+    wire [0:16] tmp;
+
+    assign tmp = {1'b0, a} + {1'b0, b};
+    assign carry = tmp[16];
+    assign out = result;
+
+    always @(posedge enable) begin
+        case (select)
+            3'b000:
+                result = a + b;
+            3'b001:
+                result = a - b;
+            3'b010:
+                result = a ^ b;
+            3'b011:
+                result = a &amp; b;
+        endcase
+    end
+endmodule
+</code></pre>
+
+            <p>Here is code for the test bench.</p>
+
+            <pre><code class="prettyprint language-verilog">
+// Test bench
+module alu_tb;
+    reg [0:15] A, B;
+    reg [0:2] select;
+    reg en;
+    wire [0:15] result;
+    wire carry;
+
+    alu alu_1(
+        .a(A),
+        .b(B),
+        .select(select),
+        .enable(en),
+        .out(result),
+        .carry(carry) 
+    );
+
+    initial begin
+        $monitor("enable=%b a=%b b=%b \nselect=%b result=%b carry=%b\n\n",
+                en, A, B, select, result, carry);
+        A = 2;
+        B = 2;
+        en = 1;
+        select = 0;
+        #5
+        en = 0;
+        en = 1;
+        select = 1;
+        #5
+        en = 0;
+        en = 1;
+        select = 2;
+        #5
+        en = 0;
+        en = 1;
+        select = 3;
+    end
+endmodule
+            </code class="prettyprint lang-c"></pre>
+
+            <p>Once compiled and simulated I get this output.</p>
+
+            <pre><code>enable=1 a=0000000000000010 b=0000000000000010 // Add
+select=000 result=0000000000000100 carry=0
+
+
+enable=1 a=0000000000000010 b=0000000000000010 // Sub
+select=001 result=0000000000000000 carry=0
+
+
+enable=1 a=0000000000000010 b=0000000000000010 // XOR
+select=010 result=0000000000000000 carry=0
+
+
+enable=1 a=0000000000000010 b=0000000000000010 // AND
+select=011 result=0000000000000010 carry=0</code></pre>
+        </div>
+        <div id="disqus_thread"></div>
+<script>
+
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://joescomputerblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <footer>
+            <p style="margin-top: 40px; font-size: 16px; color: #547aa1;">© Joe Legg 2019</p>
+        </footer>
+    </div>
+</body>
+<script id="dsq-count-scr" src="//joescomputerblog.disqus.com/count.js" async></script>
+</html>

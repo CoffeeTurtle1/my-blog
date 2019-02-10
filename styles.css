@@ -1,0 +1,115 @@
+:root {
+    --title-text-color:#547aa1;
+    --text-color: #585858;
+    --link-color: var(--title-text-color);
+    --light-text-color: #838383;
+    --background-color: #ffffff;
+}
+
+body {
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    background-color: var(--background-color);
+}
+
+pre {
+    background-color: #c7c7c7;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+h1, h2 {
+    color: var(--title-text-color);
+}
+
+/* Link */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--light-text-color);
+}
+
+/* Tables */
+table, td, th {  
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    border-bottom: 1px solid rgb(41, 41, 41);
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #b0c7df;
+}
+
+/* Button */
+#darkmode {
+    color: var(--link-color);
+    background: none;
+    border: none;
+    font-size: 15px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#darkmode:hover {
+    text-decoration: underline;
+    color: #b0c7df;
+}
+
+/* Main */
+#main {
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* Nav bar */
+
+ul {
+    float: center;
+    margin-top: 25px;
+    padding-bottom: 25px;
+}
+
+li {
+    display: block;
+    color: var(--light-text-color);
+    text-align: center;
+    text-decoration: none;
+    float: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Post */
+#post a {
+    font-size: 20px;
+}
+
+#post {
+    margin-top: 10px;
+}
+
+small.post {
+    float: right;
+    margin: 0;
+    color: var(--light-text-color);
+}

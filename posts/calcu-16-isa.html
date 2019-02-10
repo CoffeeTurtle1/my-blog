@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+
+    <script src="../main.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+    <title>Joe Legg | Calcu-16 ISA</title>
+</head>
+
+<body>
+    <div id="main">
+        <button style="float: left;" id="darkmode" onclick="dark()">Dark Mode</button></p>
+        <ul>
+            <li><a href="../about.html">About</a></li>
+            <li>|</li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li>|</li>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+        <div id="blogpostcontainer">
+                <h1 id="calcu16isa">Calcu-16 ISA</h1>
+
+                <h3>2019 01 09</h3>
+                
+                <p>As you know I have been making a 16-bit processor (that I have creatively named
+                Calcu-16 /s) in Verilog to gain experience before going on to design a RISC-V
+                based processor. My next step will be to design the instruction set, that is
+                what this blog post is about.</p>
+                
+                <p>Calcu-16 is almost complete. The only thing I need to add to it is an I/O
+                system; at this point I don't fully understand how modern processors handle
+                I/O.</p>
+                
+                <h2 id="registers">Registers</h2>
+                
+                <p>Calcu-16 has eight <strong>general purpose</strong> registers r0-r7. Each register is 16-bits
+                wide. There are three other registers, the IR (<strong>I</strong>nstruction <strong>R</strong>egister
+                26-bit), the PC (<strong>P</strong>rogram <strong>C</strong>ounter 16-bit) and the carry register
+                (1-bit).</p>
+                
+                <h2 id="instructionformats">Instruction formats</h2>
+                
+                <h3 id="registerformat">Register Format</h3>
+                
+                
+<pre><code>0:3     4:6 7:9 10:12
+op-code registers       unused
+ │           │              │
+┌┴─┐ ┌───────┴─┐ ┌──────────┴┐
+0000 000 000 000 0000000000000
+     └┬┘ └┬┘ └┬┘
+     r1  r2  r3</code></pre>
+                
+                <h3 id="immediatememoryformat">Immediate/Memory Format</h3>
+                
+<pre><code>0:3     4:6   7:9 10:25
+op-code registers immediate/addr
+ │        │        │
+┌┴─┐ ┌────┴┐ ┌─────┴────────┐
+0000 000 000 0000000000000000
+     └┬┘ └┬┘
+     r1  r2</code></pre>
+                
+                <h2 id="instructions">Instructions</h2>
+                
+                <table>
+                    <thead>
+                    <tr>
+                    <th>Instruction</th>
+                    <th>Op-Code</th>
+                    <th>Format</th>
+                    <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>nop</td>
+                    <td>0000</td>
+                    <td>N/A</td>
+                    <td>Does nothing.</td>
+                    </tr>
+                    <tr>
+                    <td>add reg1, reg2, reg3</td>
+                    <td>0001</td>
+                    <td>Register</td>
+                    <td>Adds reg2 to reg3. Stores the result in reg1.</td>
+                    </tr>
+                    <tr>
+                    <td>addi reg1, reg2, Imm</td>
+                    <td>0010</td>
+                    <td>Immediate</td>
+                    <td>Adds reg3 to Imm. Stores the result in reg1.</td>
+                    </tr>
+                    <tr>
+                    <td>jmp addr</td>
+                    <td>0011</td>
+                    <td>Memory</td>
+                    <td>Sets the PC to the value of addr.</td>
+                    </tr>
+                    <tr>
+                    <td>jeq reg1, reg2, addr</td>
+                    <td>0100</td>
+                    <td>Memory</td>
+                    <td>If reg1 = reg2 then jump to addr.</td>
+                    </tr>
+                    <tr>
+                    <td>store reg1, addr</td>
+                    <td>0101</td>
+                    <td>Memory</td>
+                    <td>Store reg1 at addr.</td>
+                    </tr>
+                    <tr>
+                    <td>load reg1, addr</td>
+                    <td>0110</td>
+                    <td>Memory</td>
+                    <td>Load reg1 with the value stored at addr.</td>
+                    </tr>
+                    <tr>
+                    <td>xor reg1, reg2, reg3</td>
+                    <td>0111</td>
+                    <td>Register</td>
+                    <td>XOR reg2 and reg3 put the result in reg2.</td>
+                    </tr>
+                    <tr>
+                    <td>and reg1, reg2, reg3</td>
+                    <td>1000</td>
+                    <td>Register</td>
+                    <td>AND reg2 and reg3 put the result in reg2.</td>
+                    </tr>
+                    <tr>
+                    <td>jc addr</td>
+                    <td>1001</td>
+                    <td>Memory</td>
+                    <td>If the carry flag is set jump to addr.</td>
+                    </tr>
+                    </tbody>
+                </table>                        
+                
+                <p>Calcu-16 has no subtract function because you can add signed negative numbers for
+                subtraction.</p>
+        </div>
+        <div id="disqus_thread"></div>
+        <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://joescomputerblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <footer>
+            <p style="margin-top: 40px; font-size: 16px; color: #547aa1;">© Joe Legg 2019</p>
+        </footer>
+    </div>
+</body>
+<script id="dsq-count-scr" src="//joescomputerblog.disqus.com/count.js" async></script>
+</html>
