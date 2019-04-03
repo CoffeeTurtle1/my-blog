@@ -1,0 +1,58 @@
+<html lang='en'>
+        <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <link rel='stylesheet' href='../styles.css'>
+        <script src='../main.js'></script>
+        <script src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js'></script>
+        <title>Joe Legg | RISC-V Project Update </title>
+        </head>
+        <body>
+        <div id='main'>
+        <button style='float: left;' id='darkmode' onclick='dark()'>Dark Mode</button></p>
+        <ul>
+        <li><a href='../about.html'>About</a></li>
+        <li>|</li>
+        <li><a href='../blog.html'>Blog</a></li>
+        <li>|</li>
+        <li><a href='../index.html'>Home</a></li>
+        </ul>
+        <div id='blogpostcontainer'>
+<h1 id="risc-v-project-update">RISC-V Project Update</h1>
+<h3>
+2019-01-18
+</h3>
+<p>In a previous post I made a simple 16-bit processor (<a href="calcu-16-isa.html">Calcu-16</a>) to help me learn Verilog so that I could make a RISC-V based processor. This post is about my progress so far.</p>
+<p>I am currently on my second attempt at writing the code for the RISC-V processor. The first time I spent hours coding but I couldn’t get the timing to work. In the end I decided it would be easiest to restart writing the code and I ended up having the same problem again.</p>
+<p>Here is a picture of the timing diagram: <br> <img src="./risc-v-timing.png" alt="Image can't be loaded" width="800"/> <br></p>
+<p>The problem is that execution of the instruction starts 3 clock cycles after the instruction is fetched from memory.</p>
+<p>Hopefully I will have resolved my issues soon and my next post will be about my finished RISC-V processor with any luck.</p>
+</div>
+        <div id='disqus_thread'></div>
+        <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://joescomputerblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript'>comments powered by Disqus.</a></noscript>
+        <footer>
+        <p style='margin-top: 40px; font-size: 16px; color: #547aa1;'>© Joe Legg 2019</p>
+        </footer>
+        </div>
+        </body>
+        <script id='dsq-count-scr' src='//joescomputerblog.disqus.com/count.js' async></script>
+        </html>

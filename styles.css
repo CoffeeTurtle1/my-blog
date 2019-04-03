@@ -29,6 +29,7 @@ a {
     text-decoration: none;
 }
 
+/* hr */
 hr {
     border: 0;
     height: 1px;
@@ -55,9 +56,16 @@ th, td {
     padding: 15px;
 }
 
+/* link */
 a:hover {
     text-decoration: underline;
     color: #b0c7df;
+}
+
+/* Main */
+#main {
+    width: 800px;
+    margin: 0 auto;
 }
 
 /* Button */
@@ -73,12 +81,6 @@ a:hover {
 #darkmode:hover {
     text-decoration: underline;
     color: #b0c7df;
-}
-
-/* Main */
-#main {
-    width: 800px;
-    margin: 0 auto;
 }
 
 /* Nav bar */
