@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+from datetime import date
 import markdown
 
 html_header = """<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge"> <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> <link rel="stylesheet" href="../styles.css"> <script src="../main.js"></script> <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> <title>Joe Legg</title> </head> <body> <div id="main"> <button style="float: left;" id="darkmode" onclick="dark()">Dark Mode</button></p> <ul> <li><a href="../about.html">About</a></li> <li>|</li> <li><a href="../blog.html">Blog</a></li> <li>|</li> <li><a href="../index.html">Home</a></li> </ul> <div id="blogpostcontainer">"""
@@ -27,8 +28,25 @@ def main():
         output_file = open(args[0][:-3] + ".html", "w")
         output_file.write(html)
         output_file.close()
+
+        post_list_f = open("blog.html", "r+")
+        post_list = post_list_f.readlines()
+        post_list_f.close()
+
+        if input("Is this a new post? [y/n]") == "y":
+            title = input("Title: ")
+            description = input("Description: ")
+            date_str = date.today().strftime("%d %m %Y")
+
+            post_list.insert(30, '<a href="' + args[0][:-3] + '.html">' +
+                             title + '</a><small class="post">' + date_str +
+                             '</small><p>' + description + '</p><hr>')
+
+            post_list_f = open("blog.html", "w")
+            post_list_f.writelines(post_list)
+            post_list_f.close()
         print("Done.")
     else:
-        print("asdf")
+        print("Invalid number of arguments.")
 
 main()
