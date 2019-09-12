@@ -33,7 +33,7 @@ def main():
         post_list = post_list_f.readlines()
         post_list_f.close()
 
-        if input("Is this a new post? [y/n]") == "y":
+        if input("Add this post to the post list? [y/n] ") == "y":
             title = input("Title: ")
             description = input("Description: ")
             date_str = date.today().strftime("%d %m %Y")
