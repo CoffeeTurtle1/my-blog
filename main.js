@@ -15,3 +15,4 @@ function dark() {
         document.documentElement.style.setProperty('--title-text-color', '#5389c0');
     }
 }
+

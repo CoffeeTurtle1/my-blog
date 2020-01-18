@@ -27,16 +27,22 @@
 
         <h1>About</h1>
         <p>
-            Hi, my name is joe. I am a 14 year old home-educated student from the
+            Hi, my name is joe. I am a <age id='age'>ERROR CALCULATING AGE</age> year old home-educated student from the
             UK with an interest in computer architecture and programming. This blog
             documents my learning.
             <br><br>
             Enjoy!
-            <br><br><br>
+            <br><br>
             Email: &ensp;&ensp;<a href="mailto:joelegg3@gmail.com">joelegg3@gmail.com</a><br>
             GitHub: &nbsp;<a href="https://github.com/CoffeeTurtle1">github.com/CoffeeTurtle1</a><br>
             Twitter: &nbsp;<a href="https://twitter.com/CoffeeTurtle1">@CoffeeTurtle1</a>
         </p>
+
+        <script>
+            var d = new Date();
+            age = document.getElementById("age");
+            age.innerHTML = Number(d.getFullYear()) - 2006;
+        </script>
 
         <footer>
             <p style="margin-top: 40px; font-size: 16px; color: #547aa1;">© Joe Legg 2018</p>
